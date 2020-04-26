@@ -1,7 +1,17 @@
 // Listen for submit
-document.getElementById('loan-form').addEventListener('submit', calculateResult);
+document.getElementById('loan-form').addEventListener('submit', function(e){
+  // hide results
+  document.getElementById('results').style.display = 'none';
+  // show loader
+  document.getElementById('loading').style.display = 'block';
 
-function calculateResult(e){
+  setTimeout(calculateResult, 2000)
+  
+  e.preventDefault();
+
+});
+
+function calculateResult(){
   console.log('kira');
 
   // UI vars
@@ -24,15 +34,25 @@ function calculateResult(e){
     monthlyPayment.value = monthly.toFixed(2);
     totalPayment.value = (monthly * calculatedPayments).toFixed(2);
     totalInterest.value = ((monthly * calculatedPayments)-principal).toFixed(2);
+
+    // show results
+    document.getElementById('results').style.display = 'block';
+    // hide loader
+    document.getElementById('loading').style.display = 'none';
   } else {
     showError('Please Check your number');
   }
-
-  e.preventDefault();
+  
 }
 
 // Show Error
 function showError(error){
+
+  // hide results
+  document.getElementById('results').style.display = 'none';
+  // hide loader
+  document.getElementById('loading').style.display = 'none';
+
   // create div
   const errorDiv = document.createElement('div');
 
